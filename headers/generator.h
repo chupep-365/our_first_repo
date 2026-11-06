@@ -4,7 +4,6 @@
 #include <iostream>
 #include <cstdint>
 #include <random>
-#include <cmath>
 #include <string>
 
 // generates 2 .txt files according to the task: students_info.txt and students_grades.txt

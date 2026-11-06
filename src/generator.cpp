@@ -1,10 +1,10 @@
-#include "generator.h"
+#include "../headers/generator.h"
 
 
 void generate_students_info(const size_t students) {
     std::cout << "\nCreating files...\n";
-    std::ofstream info_file("students_info.txt");
-    std::ofstream grades_file("students_grades.txt");
+    std::ofstream info_file("src_files/students_info.txt");
+    std::ofstream grades_file("src_files/students_grades.txt");
     if(!info_file || !grades_file) {
         throw "\nError: cant create files\n";
     }
