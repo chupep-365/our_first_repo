@@ -2,3 +2,5 @@ build/
 *.out
 *.log
 temp/
+*.exe
+*.o 
