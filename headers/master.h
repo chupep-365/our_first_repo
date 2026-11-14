@@ -2,3 +2,4 @@
 
 #include "generator.h"
 #include "file_to_bin.h"
+#include "fileRatings.h"
