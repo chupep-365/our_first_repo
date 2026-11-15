@@ -3,10 +3,10 @@
 //zadanie a1
 
 struct Student{
+    char number[6];
     char sourname[20];
     char name[20];
     char fname[20];
-    char number[6];
 };
 
 void is_open(std::ifstream& fin){
@@ -17,38 +17,38 @@ void is_open(std::ifstream& fin){
 
 void f_to_b_i(std::ifstream& fin) {
     Student person;
-    std::string temp{};
+    std::string line{};
     std::string name{};
     size_t beg{}, end{};
     std::ofstream bin_out("src_files/st_info.bin", std::ios::binary);
-    while(std::getline(fin, temp)){
-        if(temp.empty()){
+    while(std::getline(fin, line)){
+        if(line.empty()){
             continue;
         }
-        beg = temp.find_first_not_of(';');
+        beg = line.find_first_not_of(';');
         if(beg == std::string::npos){
             continue;
         }
-        end = temp.find_first_of(';', beg);
+        end = line.find_first_of(';', beg);
         if(end == std::string::npos){
-            end = temp.length();
+            end = line.length();
         }
-        name = temp.substr(beg, end - beg);
+        name = line.substr(beg, end - beg + 1);
         strcpy(person.number, name.c_str());//запись номера зачётки в структуру
 
-        beg = temp.find_first_not_of(';', end);
-        end = temp.find_first_of(';', beg);
-        name = temp.substr(beg, end - beg);
+        beg = line.find_first_not_of(';', end);
+        end = line.find_first_of(';', beg);
+        name = line.substr(beg, end - beg + 1);
         strcpy(person.sourname, name.c_str());//запись фамилии в структуру
 
-        beg = temp.find_first_not_of(';', end);
-        end = temp.find_first_of(';', beg);
-        name = temp.substr(beg, end - beg);
+        beg = line.find_first_not_of(';', end);
+        end = line.find_first_of(';', beg);
+        name = line.substr(beg, end - beg + 1);
         strcpy(person.name, name.c_str());//запись имени в структуру
 
-        beg = temp.find_first_not_of(';', end);
-        end = temp.find_first_of(';', beg);
-        name = temp.substr(beg, end - beg);
+        beg = line.find_first_not_of(';', end);
+        end = line.find_first_of(';', beg);
+        name = line.substr(beg, end - beg + 1);
         strcpy(person.fname, name.c_str());//запись отчества в структуру
         
         bin_out.write((char*)&person, sizeof(person));//заполнения строчки в бинарный файл
