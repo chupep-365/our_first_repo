@@ -9,7 +9,7 @@ struct StudentRecord
     int16_t grade[3];
 };
 
-void create_bin_grates()
+void create_bin_grades()
 {
     std::cout << "Creating file..." << '\n';
     std::ifstream txtfile("src_files/students_grades.txt");

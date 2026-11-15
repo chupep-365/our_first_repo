@@ -4,5 +4,5 @@
 #include <fstream>
 #include <cstring>
 
-void create_bin_grates();
+void create_bin_grades();
 void read_bin();
