@@ -4,6 +4,7 @@ build/
 temp/
 *.exe
 *.o 
+*.DS_storage
 
 # Prerequisites
 *.d
