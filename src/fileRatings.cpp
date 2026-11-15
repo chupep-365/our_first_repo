@@ -3,9 +3,9 @@
 
 struct StudentRecord
 {
-    char group[10];
-    char record_book_number[10];
-    char subject[3][10]; // 3 строки по 10 символов
+    char group[3];
+    char record_book_number[6];
+    char subject[3][5]; // 3 строки по 5 символов
     int16_t grade[3];
 };
 
@@ -20,7 +20,6 @@ void create_bin_grates()
     }
     StudentRecord record{};
     std::string line;
-    std::string delims = ";";
     size_t beg{}, end{};
     while (std::getline(txtfile, line)) // читает строку и кладет в line
     {
@@ -28,25 +27,25 @@ void create_bin_grates()
         {
             continue;
         }
-        beg = line.find_first_not_of(delims);
+        beg = line.find_first_not_of(";");
         if (beg == std::string::npos)
         {
             continue;
         }
-        end = line.find_first_of(delims, beg);
+        end = line.find_first_of(";", beg);
         strcpy(record.group, line.substr(beg, end - beg).c_str());
 
-        beg = line.find_first_not_of(delims, end);
-        end = line.find_first_of(delims, beg);
+        beg = line.find_first_not_of(";", end);
+        end = line.find_first_of(";", beg);
         strcpy(record.record_book_number, line.substr(beg, end - beg).c_str());
 
         for (int16_t i = 0; i < 3; ++i)
         {
-            beg = line.find_first_not_of(delims, end);
-            end = line.find_first_of(delims, beg);
+            beg = line.find_first_not_of(";", end);
+            end = line.find_first_of(";", beg);
             strcpy(record.subject[i], line.substr(beg, end - beg).c_str());
-            beg = line.find_first_not_of(delims, end);
-            end = line.find_first_of(delims, beg);
+            beg = line.find_first_not_of(";", end);
+            end = line.find_first_of(";", beg);
             record.grade[i] = std::stoi(line.substr(beg, end - beg));
         }
         binfile.write(reinterpret_cast<const char *>(&record), sizeof(record));

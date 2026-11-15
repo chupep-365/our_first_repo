@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include <fstream>
-#include <string>
+#include <cstring>
 
 void create_bin_grates();
 void read_bin();
