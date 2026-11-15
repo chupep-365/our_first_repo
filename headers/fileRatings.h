@@ -4,4 +4,5 @@
 #include <fstream>
 #include <string>
 
-void conv_txt_to_bin(const std::string &filenametxt, const std::string &filenamebin);
+void create_bin_grates();
+void read_bin();
