@@ -15,11 +15,6 @@ void is_open(std::ifstream& fin){
     }
 }//proverka otkrytia
 
-void copy_to_field(char* dest, size_t dest_size, const std::string& src) { // функция безопасного копирования
-    std::strncpy(dest, src.c_str(), dest_size - 1);
-    dest[dest_size - 1] = '\0'; // гарантируем закрывающий ноль
-}
-
 void f_to_b_i(std::ifstream& fin) {
     std::string line{};
     std::string temp{};
