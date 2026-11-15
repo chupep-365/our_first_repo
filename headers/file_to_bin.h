@@ -1,6 +1,5 @@
 #pragma once
 
-#define _CRT_SECURE_NO_WARNINGS
 #include "../headers/generator.h"
 #include <cstring>
 
