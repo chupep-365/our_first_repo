@@ -6,6 +6,7 @@ int main()
     {
         generate_students_info(40);
         create_bin_info();
+        create_bin_grades();
     }
     catch(const char* err)
     {
