@@ -1,89 +1,76 @@
 // Задание а) бинарный файл с оценками
 #include "../headers/fileRatings.h"
 
-struct Subject
-{
-    std::string name;
-    int grade;
-};
 struct StudentRecord
 {
-    std::string group;
-    std::string record_book_number;
-    Subject subjects[3];
+    char group[10];
+    char record_book_number[10];
+    char subject[3][10]; // 3 строки по 10 символов
+    int16_t grade[3];
 };
 
-void conv_txt_to_bin(const std::string &filenametxt, const std::string &filenamebin)
+void create_bin_grates()
 {
+    std::cout << "Creating file..." << '\n';
     std::ifstream txtfile("src_files/students_grades.txt");
-    std::ofstream binfile("src_files/students_grades.bin", std::ios::binary);
+    std::ofstream binfile("src_files/st_grades.bin", std::ios::binary);
     if (!txtfile.is_open() || !binfile.is_open())
     {
-        return;
+        throw "Error opening files\n";
     }
+    StudentRecord record{};
     std::string line;
-    size_t number_line = 0;
+    std::string delims = ";";
+    size_t beg{}, end{};
     while (std::getline(txtfile, line)) // читает строку и кладет в line
     {
         if (line.empty())
         {
             continue;
         }
-        ++number_line;
-        size_t pos = 0;
-        size_t next_pos;
-        std::string array[50]; // массив для строк
-        size_t counter = 0;
-        while (pos < line.length() && counter < 50)
+        beg = line.find_first_not_of(delims);
+        if (beg == std::string::npos)
         {
-            next_pos = line.find(';', pos);
-            if (next_pos == std::string::npos)
-            {
-                array[counter] = line.substr(pos);
-                counter++;
-                break;
-            }
-            else
-            {
-                array[counter] = line.substr(pos, next_pos - pos);
-                counter++;
-                pos = next_pos + 1;
-            }
+            continue;
         }
-        StudentRecord record;
-        record.group = array[0];
-        record.record_book_number = array[1];
-        for (int i = 0; i < 3; ++i) // идем по кол-ву предметов (3)
-        {
-            int subject_index = (i * 2) + 2;
-            int grade_index = subject_index + 1;
-            record.subjects[i].name = array[subject_index];
-            record.subjects[i].grade = std::stoi(array[grade_index]);
-        }
+        end = line.find_first_of(delims, beg);
+        strcpy(record.group, line.substr(beg, end - beg).c_str());
 
-        size_t group_length = record.group.length();                                        // вычисляем длину строки
-        binfile.write(reinterpret_cast<const char *>(&group_length), sizeof(group_length)); // номер группы
-        if (group_length > 0)
+        beg = line.find_first_not_of(delims, end);
+        end = line.find_first_of(delims, beg);
+        strcpy(record.record_book_number, line.substr(beg, end - beg).c_str());
+
+        for (int16_t i = 0; i < 3; ++i)
         {
-            binfile.write(record.group.data(), group_length);
+            beg = line.find_first_not_of(delims, end);
+            end = line.find_first_of(delims, beg);
+            strcpy(record.subject[i], line.substr(beg, end - beg).c_str());
+            beg = line.find_first_not_of(delims, end);
+            end = line.find_first_of(delims, beg);
+            record.grade[i] = std::stoi(line.substr(beg, end - beg));
         }
-        size_t record_book_length = record.record_book_number.length();
-        binfile.write(reinterpret_cast<const char *>(&record_book_length), sizeof(record_book_length)); // номер зачетки
-        if (record_book_length > 0)
-        {
-            binfile.write(record.record_book_number.data(), record_book_length);
-        }
-        for (int i = 0; i < 3; ++i)
-        {
-            group_length = record.subjects[i].name.length();
-            binfile.write(reinterpret_cast<const char *>(&group_length), sizeof(group_length));
-            if (group_length > 0)
-            {
-                binfile.write(record.subjects[i].name.data(), group_length);
-                binfile.write(reinterpret_cast<const char *>(&record.subjects[i].grade), sizeof(int));
-            }
-        }
+        binfile.write(reinterpret_cast<const char *>(&record), sizeof(record));
     }
     txtfile.close();
     binfile.close();
+    std::cout << "Done! Created st_grades.bin" << '\n';
+}
+void read_bin()
+{
+    std::ifstream fin("src_files/st_grades.bin");
+    StudentRecord record;
+    if (!fin.is_open())
+    {
+        throw "File wasn't open\n";
+    }
+    while (fin.read(reinterpret_cast<char *>(&record), sizeof(record)))
+    {
+        std::cout << record.group << ": " << record.record_book_number << "| ";
+        for (int16_t i = 0; i < 3; ++i)
+        {
+            std::cout << record.subject[i] << ": " << record.grade[i] << "; ";
+        }
+        std::cout << '\n';
+    }
+    fin.close();
 }
