@@ -3,9 +3,9 @@
 
 struct StudentRecord
 {
-    char group[3];
-    char record_book_number[6];
-    char subject[3][5]; // 3 строки по 5 символов
+    char group[10];
+    char record_book_number[10];
+    char subject[3][10]; // 3 строки по 10 символов
     int16_t grade[3];
 };
 
@@ -56,7 +56,7 @@ void create_bin_grades()
 }
 void read_bin()
 {
-    std::ifstream fin("src_files/st_grades.bin");
+    std::ifstream fin("src_files/st_grades.bin", std::ios::binary);
     StudentRecord record;
     if (!fin.is_open())
     {
