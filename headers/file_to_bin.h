@@ -1,10 +1,8 @@
 #pragma once
 
 #define _CRT_SECURE_NO_WARNINGS
-#include <fstream>
-#include <iostream>
+#include "../headers/generator.h"
 #include <cstring>
-#include <string>
 
 void is_open(std::ifstream&);
 

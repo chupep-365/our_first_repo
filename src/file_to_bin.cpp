@@ -1,5 +1,4 @@
-#include "../headers/generator.h"
-#include <cstring>
+#include "../headers/file_to_bin.h"
 
 //zadanie a1
 
@@ -18,8 +17,6 @@ void is_open(std::ifstream& fin){
 
 void f_to_b_i(std::ifstream& fin) {
     Student person;
-    std::string delim{";"};
-    std::getline(fin, delim);
     std::string temp{};
     std::string name{};
     size_t beg{}, end{};
@@ -64,13 +61,8 @@ void f_to_b_i(std::ifstream& fin) {
 }
 
 void create_bin_info(){
-    try{
-        std::ifstream fin("src_files/students_info.txt");
-        is_open(fin);
-        f_to_b_i(fin);
-    }
-    catch(const char* code){
-        std::cerr << code;
-    }
+    std::ifstream fin("src_files/students_info.txt");
+    is_open(fin);
+    f_to_b_i(fin);
 }//функция для выполнения задания а1
 
