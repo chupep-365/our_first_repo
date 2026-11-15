@@ -7,6 +7,7 @@ struct Student{
     char sourname[20];
     char name[20];
     char fname[20];
+    char null{'\0'};
 };
 
 void is_open(std::ifstream& fin){
