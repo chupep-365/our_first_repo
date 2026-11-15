@@ -18,7 +18,7 @@ void is_open(std::ifstream& fin){
 void f_to_b_i(std::ifstream& fin) {
     Student person;
     std::string line{};
-    std::string name{};
+    std::string temp{};
     size_t beg{}, end{};
     std::ofstream bin_out("src_files/st_info.bin", std::ios::binary);
     while(std::getline(fin, line)){
@@ -33,23 +33,23 @@ void f_to_b_i(std::ifstream& fin) {
         if(end == std::string::npos){
             end = line.length();
         }
-        name = line.substr(beg, end - beg + 1);
-        strcpy(person.number, name.c_str());//запись номера зачётки в структуру
+        temp = line.substr(beg, end - beg);
+        strcpy(person.number, temp.c_str());//запись номера зачётки в структуру
 
         beg = line.find_first_not_of(';', end);
         end = line.find_first_of(';', beg);
-        name = line.substr(beg, end - beg + 1);
-        strcpy(person.sourname, name.c_str());//запись фамилии в структуру
+        temp = line.substr(beg, end - beg);
+        strcpy(person.sourname, temp.c_str());//запись фамилии в структуру
 
         beg = line.find_first_not_of(';', end);
         end = line.find_first_of(';', beg);
-        name = line.substr(beg, end - beg + 1);
-        strcpy(person.name, name.c_str());//запись имени в структуру
+        temp = line.substr(beg, end - beg);
+        strcpy(person.name, temp.c_str());//запись имени в структуру
 
         beg = line.find_first_not_of(';', end);
         end = line.find_first_of(';', beg);
-        name = line.substr(beg, end - beg + 1);
-        strcpy(person.fname, name.c_str());//запись отчества в структуру
+        temp = line.substr(beg, end - beg);
+        strcpy(person.fname, temp.c_str());//запись отчества в структуру
         
         bin_out.write((char*)&person, sizeof(person));//заполнения строчки в бинарный файл
         beg = 0;
