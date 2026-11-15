@@ -12,14 +12,14 @@ struct Student{
 
 void is_open(std::ifstream& fin){
     if(!fin){
-        std::cout << "\nError\n";
+        throw "\nError of open file!\n";
     }
 }//proverka otkrytia
 
-void create_bin_info(std::ifstream& fin) {
+void f_to_b_i(std::ifstream& fin) {
     Student person;
-    std::string delims{"; /.,"};
-    std::getline(fin, delims);
+    std::string delim{";"};
+    std::getline(fin, delim);
     std::string temp{};
     std::string name{};
     size_t beg{}, end{};
@@ -28,46 +28,32 @@ void create_bin_info(std::ifstream& fin) {
         if(temp.empty()){
             continue;
         }
-        beg = temp.find_first_not_of(delims);
+        beg = temp.find_first_not_of(';');
         if(beg == std::string::npos){
             continue;
         }
-        end = temp.find_first_of(delims, beg);
+        end = temp.find_first_of(';', beg);
         if(end == std::string::npos){
             end = temp.length();
         }
         name = temp.substr(beg, end - beg);
         strcpy(person.number, name.c_str());//запись номера зачётки в структуру
-        beg = temp.find_first_not_of(delims, end);
-        if(beg == std::string::npos){
-            continue;
-        }
-        end = temp.find_first_of(delims, beg);
-        if(end == std::string::npos){
-            end = temp.length();
-        }
+
+        beg = temp.find_first_not_of(';', end);
+        end = temp.find_first_of(';', beg);
         name = temp.substr(beg, end - beg);
         strcpy(person.sourname, name.c_str());//запись фамилии в структуру
-        beg = temp.find_first_not_of(delims, end);
-        if(beg == std::string::npos){
-            continue;
-        }
-        end = temp.find_first_of(delims, beg);
-        if(end == std::string::npos){
-            end = temp.length();
-        }
+
+        beg = temp.find_first_not_of(';', end);
+        end = temp.find_first_of(';', beg);
         name = temp.substr(beg, end - beg);
         strcpy(person.name, name.c_str());//запись имени в структуру
-        beg = temp.find_first_not_of(delims, end);
-        if(beg == std::string::npos){
-            continue;
-        }
-        end = temp.find_first_of(delims, beg);
-        if(end == std::string::npos){
-            end = temp.length();
-        }
+
+        beg = temp.find_first_not_of(';', end);
+        end = temp.find_first_of(';', beg);
         name = temp.substr(beg, end - beg);
         strcpy(person.fname, name.c_str());//запись отчества в структуру
+        
         bin_out.write((char*)&person, sizeof(person));//заполнения строчки в бинарный файл
         beg = 0;
         end = 0; 
@@ -77,9 +63,14 @@ void create_bin_info(std::ifstream& fin) {
     std::cout << "\nDone! created st_info.bin\n";
 }
 
-void f_to_b_i(){
-    std::ifstream fin("src_files/students_info.txt");
-    is_open(fin);
-    create_bin_info(fin);
+void create_bin_info(){
+    try{
+        std::ifstream fin("src_files/students_info.txt");
+        is_open(fin);
+        f_to_b_i(fin);
+    }
+    catch(const char* code){
+        std::cerr << code;
+    }
 }//функция для выполнения задания а1
 
