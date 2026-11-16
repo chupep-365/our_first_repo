@@ -3,10 +3,6 @@
 #include "../headers/file_to_bin.h"
 #include "../headers/surname_to_ratings.h"
 
-bool read_binfile(std::ifstream &fin, StudentRecord &grade)
-{
-    return static_cast<bool>(fin.read(reinterpret_cast<char *>(&grade), sizeof(grade)));
-}
 void surname_to_ratings()
 {
     std::cout << "Creating file..." << '\n';
@@ -19,7 +15,7 @@ void surname_to_ratings()
     }
     StudentRecord record;
     Student person{};
-    while (read_binfile(grades_binfile, record))
+    while (grades_binfile.read(reinterpret_cast<char *>(&record), sizeof(record)))
     {
         StudentSurnameRecord result{};
         names_binfile.clear();                 // сбрасываем ошибку конца файла
@@ -36,7 +32,7 @@ void surname_to_ratings()
         std::strncpy(result.record_book_number, record.record_book_number, sizeof(result.record_book_number) - 1); // номер зачетки
         for (int16_t i = 0; i < 3; ++i)
         {
-            std::strncpy(result.subject[i], record.subject[i], sizeof(result.subject) - 1); // предмет и оценка
+            std::strncpy(result.subject[i], record.subject[i], sizeof(result.subject[i]) - 1); // предмет и оценка
             result.grade[i] = record.grade[i];
         }
         names_grades_bin.write(reinterpret_cast<const char *>(&result), sizeof(result));
