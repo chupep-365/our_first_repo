@@ -1,13 +1,6 @@
 // Задание а) бинарный файл с оценками
 #include "../headers/fileRatings.h"
-
-struct StudentRecord
-{
-    char group[8];
-    char record_book_number[16];
-    char subject[3][10]; // 3 строки по 10 символов
-    int16_t grade[3];
-};
+#include "../headers/surname_to_ratings.h"
 
 void create_bin_grades()
 {
@@ -84,15 +77,15 @@ void create_bin_grades()
 }
 void read_bin()
 {
-    std::ifstream fin("src_files/st_grades.bin", std::ios::binary);
-    StudentRecord record;
+    std::ifstream fin("src_files/surname_grades.bin", std::ios::binary);
+    StudentSurnameRecord record;
     if (!fin.is_open())
     {
         throw "File wasn't open\n";
     }
     while (fin.read(reinterpret_cast<char *>(&record), sizeof(record)))
     {
-        std::cout << record.group << ": " << record.record_book_number << "| ";
+        std::cout << record.surname << ": " << record.group << ": " << record.record_book_number << "| ";
         for (int16_t i = 0; i < 3; ++i)
         {
             std::cout << record.subject[i] << ": " << record.grade[i] << "; ";

@@ -1,43 +1,42 @@
 #include "../headers/file_to_bin.h"
 
-//zadanie a1
+// zadanie a1
 
-struct Student {
-    char number[16];
-    char surname[32]; // по 2 байта на символ + нультерминатор
-    char name[32];
-    char fname[32];
-};
-
-void is_open(std::ifstream& fin){
-    if(!fin){
+void is_open(std::ifstream &fin)
+{
+    if (!fin)
+    {
         throw "\nError of open file!\n";
     }
-}//proverka otkrytia
+} // proverka otkrytia
 
-void f_to_b_i(std::ifstream& fin) {
+void f_to_b_i(std::ifstream &fin)
+{
     std::string line{};
     std::string temp{};
     size_t beg{}, end{};
     std::ofstream bin_out("src_files/st_info.bin", std::ios::binary);
-    while(std::getline(fin, line)) {
-        if(line.empty()) {
+    while (std::getline(fin, line))
+    {
+        if (line.empty())
+        {
             continue;
         }
-        Student person{}; 
+        Student person{};
         // 1. номер зачетки
         beg = 0;
         end = line.find(';', beg);
-        if(end == std::string::npos){
-            continue; 
+        if (end == std::string::npos)
+        {
+            continue;
         }
         temp = line.substr(beg, end - beg);
         strncpy(person.number, temp.c_str(), sizeof(person.number) - 1);
         // 2. фамилия
         beg = end + 1;
         end = line.find(';', beg);
-        if(end == std::string::npos) 
-        {   
+        if (end == std::string::npos)
+        {
             continue;
         }
         temp = line.substr(beg, end - beg);
@@ -45,7 +44,7 @@ void f_to_b_i(std::ifstream& fin) {
         // 3. имя
         beg = end + 1;
         end = line.find(';', beg);
-        if(end == std::string::npos) 
+        if (end == std::string::npos)
         {
             continue;
         }
@@ -55,16 +54,16 @@ void f_to_b_i(std::ifstream& fin) {
         beg = end + 1;
         temp = line.substr(beg);
         strncpy(person.fname, temp.c_str(), sizeof(person.fname) - 1);
-        bin_out.write((char*)&person, sizeof(person));
+        bin_out.write((char *)&person, sizeof(person));
     }
     bin_out.close();
     fin.close();
     std::cout << "\nDone! created st_info.bin\n";
 }
 
-void create_bin_info(){
+void create_bin_info()
+{
     std::ifstream fin("src_files/students_info.txt");
     is_open(fin);
     f_to_b_i(fin);
-}//функция для выполнения задания а1
-
+} // функция для выполнения задания а1
