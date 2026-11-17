@@ -18,7 +18,7 @@ void c_a_s_s(std::ifstream& fin) {
     }
     bi_out.close();
     fin.close();
-    std::cout << "\nDone! Average score of students is calculating.\n";
+    std::cout << "\nDone! Average score of students is calculated!\n";
 }
 
 void calc_average_score_of_students(){

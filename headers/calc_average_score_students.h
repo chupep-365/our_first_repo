@@ -12,9 +12,5 @@ struct A_s_students{
 };
 
 void is_empty(std::streamsize);
-
 void c_a_s_s(std::ifstream&);
-
-void read_bin2();
-
 void calc_average_score_of_students();

@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <fstream>
+
 struct StudentSurnameRecord
 {
     char surname[32];
