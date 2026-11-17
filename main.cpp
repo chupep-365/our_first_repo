@@ -12,6 +12,7 @@ int main()
         create_list_of_underperforming_st();
         create_list_of_top_st();
         bin_to_f();
+        sort_list();
     }
     catch (const char *err)
     {
