@@ -5,5 +5,4 @@
 #include "fileRatings.h"
 #include "surname_to_ratings.h"
 #include "calc_average_score_students.h"
-#include "create_list_of_under_st.h"
-#include "create_list_of_top_st.h"
+#include "create_list_of_st.h"

@@ -1,4 +1,4 @@
-#include "../headers/create_list_of_under_st.h"
+#include "../headers/create_list_of_st.h"
 
 void c_l_o_u_s(std::ifstream& fin){
     std::ofstream bi_out("src_files/list_of_underperforming_students.bin", std::ios::binary);
