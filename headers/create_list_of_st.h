@@ -1,7 +1,5 @@
 #pragma once
 
-#include "../headers/file_to_bin.h"
-#include "../headers/fileRatings.h"
 #include "../headers/surname_to_ratings.h"
 #include "../headers/calc_average_score_students.h"
 
