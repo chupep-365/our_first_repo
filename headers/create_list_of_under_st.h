@@ -14,3 +14,9 @@ struct Key_info_students{
 void c_l_o_u_s(std::ifstream&);
 
 void create_list_of_underperforming_st();
+
+//для отличников
+
+void c_l_o_t_s(std::ifstream&);
+
+void create_list_of_top_st();

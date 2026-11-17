@@ -1,11 +1,11 @@
-#include "../headers/create_list_of_top_st.h"
+#include "../headers/create_list_of_under_st.h"
 
 void c_l_o_t_s(std::ifstream& fin){
     std::ofstream bi_out("src_files/list_of_top_students.bin", std::ios::binary);
     StudentSurnameRecord student{};
     Key_info_students new_person{};
     while(fin.read(reinterpret_cast<char*>(&student), sizeof(student))){
-        if(student.grade[0] >= 8 || student.grade[1] >= 8 || student.grade[2] >= 8){
+        if(student.grade[0] >= 8 && student.grade[1] >= 8 && student.grade[2] >= 8){
             strcpy(new_person.surname, student.surname);
             strcpy(new_person.group, student.group);
             strcpy(new_person.record_book_number, student.record_book_number);
