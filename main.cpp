@@ -9,6 +9,8 @@ int main()
         create_bin_grades();
         surname_to_ratings();
         calc_average_score_of_students();
+        create_list_of_underperforming_st();
+        create_list_of_top_st();
     }
     catch (const char *err)
     {
