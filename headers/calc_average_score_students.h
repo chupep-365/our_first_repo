@@ -11,6 +11,5 @@ struct A_s_students{
     float av_score;
 };
 
-void is_empty(std::streamsize);
 void c_a_s_s(std::ifstream&);
 void calc_average_score_of_students();
