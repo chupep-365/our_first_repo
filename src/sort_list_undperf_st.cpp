@@ -9,25 +9,15 @@ void init(Smart_array &s, size_t size)
     s.resize_factor = 1.67;
 }
 
-int16_t char_to_int(const char *group)
-{
-    return std::atoi(group);
-}
-
 bool compare_students(const Key_info_students &student1, const Key_info_students &student2)
 {
-    int16_t group1 = char_to_int(student1.group);
-    int16_t group2 = char_to_int(student2.group);
+    int16_t group1 = std::atoi(student1.group);
+    int16_t group2 = std::atoi(student2.group);
     if (group1 != group2)
     {
         return group1 < group2;
     }
     return std::strcmp(student1.surname, student2.surname) < 0;
-}
-
-Key_info_students top(Smart_array &s)
-{
-    return s.arr[s.top - 1];
 }
 
 void resize(Smart_array &s, size_t newsize)
@@ -55,12 +45,19 @@ void push(Smart_array &s, const Key_info_students &element)
     }
     s.arr[s.top++] = element;
 }
+void delete_smart_array(Smart_array &s)
+{
+    delete[] s.arr;
+    s.arr = nullptr;
+    s.size = 0;
+    s.top = 0;
+}
 
 void sort_list()
 {
     std::cout << "Creating file..." << '\n';
     std::ifstream ifs("src_files/list_of_underperforming_students.bin", std::ios::binary);
-    std::ofstream ofs("src_files/sort_list_undperf_st.bin", std::ios::binary);
+    std::ofstream ofs("src_files/list_of_underperforming_students.bin", std::ios::binary);
     if (!ifs.is_open() || !ofs.is_open())
     {
         throw "Error opening files\n";
@@ -75,7 +72,7 @@ void sort_list()
     std::sort(student.arr, student.arr + student.top, compare_students);
     ofs.write(reinterpret_cast<const char *>(student.arr), student.top * sizeof(Key_info_students));
 
-    delete[] student.arr;
     ifs.close();
     ofs.close();
+    delete_smart_array(student);
 }
