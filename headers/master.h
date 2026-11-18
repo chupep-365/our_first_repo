@@ -8,3 +8,5 @@
 #include "create_list_of_st.h"
 #include "read_bin.h"
 #include "sort_list_undperf_st.h"
+#include "sort_list_undperf_st.h"
+#include "grade_average_score_st.h"

@@ -1,21 +1,6 @@
 // Задание е) сортировка списка неуспевающих
 #include "../headers/sort_list_undperf_st.h"
 
-struct Key_info_students
-{
-    char surname[32];
-    char group[8];
-    char record_book_number[16];
-};
-
-struct Smart_array
-{
-    Key_info_students *arr;
-    size_t size;
-    size_t top;
-    float resize_factor; // на какой коэффициент нужно расширяться
-};
-
 void init(Smart_array &s, size_t size)
 {
     s.size = size;
@@ -38,6 +23,11 @@ bool compare_students(const Key_info_students &student1, const Key_info_students
         return group1 < group2;
     }
     return std::strcmp(student1.surname, student2.surname) < 0;
+}
+
+Key_info_students top(Smart_array &s)
+{
+    return s.arr[s.top - 1];
 }
 
 void resize(Smart_array &s, size_t newsize)
@@ -64,11 +54,6 @@ void push(Smart_array &s, const Key_info_students &element)
         resize(s, newsize);
     }
     s.arr[s.top++] = element;
-}
-
-Key_info_students top(Smart_array &s)
-{
-    return s.arr[s.top - 1];
 }
 
 void sort_list()
