@@ -1,5 +1,5 @@
 #include "../headers/calc_average_score_students.h"
-#include "../headers/sort_list_undperf_st.h"
+#include "../headers/sort_list_students.h"
 #include "../headers/grade_average_score_st.h"
 
 void init(Smart_Average_array &s, size_t size)
