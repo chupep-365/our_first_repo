@@ -9,11 +9,11 @@ void surname_to_ratings()
     std::ifstream names_binfile("src_files/st_info.bin", std::ios::binary);
     std::ifstream grades_binfile("src_files/st_grades.bin", std::ios::binary);
     std::ofstream names_grades_bin("src_files/surname_grades.bin", std::ios::binary);
-    if (!names_binfile.is_open() || !names_grades_bin.is_open())
+    if (!names_binfile.is_open() || !names_grades_bin.is_open() || !grades_binfile.is_open())
     {
         throw "Error opening files\n";
     }
-    StudentRecord record;
+    StudentRecord record{};
     Student person{};
     while (grades_binfile.read(reinterpret_cast<char *>(&record), sizeof(record)))
     {
