@@ -50,6 +50,16 @@ size_t amount(std::ifstream& fin, StudentSurnameRecord person){
     return amount;
 }
 
+size_t amount (std::ifstream& fin, Grade_Average person){
+    size_t amount{};
+    while(fin.read(reinterpret_cast<char*>(&person), sizeof(person))){
+        ++amount;
+    }
+    fin.clear();
+    fin.seekg(0, std::ios::beg);
+    return amount;
+}
+
 void read_bin(std::ifstream& fin, A_s_students* persons, size_t amount_persons){
     A_s_students person{};
     size_t i{};
@@ -57,7 +67,7 @@ void read_bin(std::ifstream& fin, A_s_students* persons, size_t amount_persons){
         strcpy(persons[i].surname, person.surname);
         strcpy(persons[i].group, person.group);
         strcpy(persons[i].record_book_number, person.record_book_number);
-        persons[i].av_score = person.av_score;\
+        persons[i].av_score = person.av_score;
         ++i;
     }
     fin.close();
@@ -119,6 +129,18 @@ void read_bin(std::ifstream& fin, StudentSurnameRecord* persons, size_t amount_p
     fin.close();
 }
 
+void read_bin(std::ifstream& fin, Grade_Average* persons, size_t amount_persons){
+    Grade_Average person;
+    size_t i{};
+    while(fin.read(reinterpret_cast<char*>(&person), sizeof(person)) && i < amount_persons){
+        strcpy(persons[i].surname, person.surname);
+        strcpy(persons[i].record_book_number, person.record_book_number);
+        persons[i].av_score = person.av_score;
+        ++i;
+    }
+    fin.close();
+}
+
 void bin_to_txt(A_s_students* persons, size_t amount_persons){
     std::ofstream fout("src_files/st_average_score.txt");
     for(size_t j{}; j < amount_persons; ++j){
@@ -159,6 +181,13 @@ void bin_to_txt(StudentSurnameRecord* persons, size_t amount_persons){
             fout << "---" << persons[j].subject[k] << "-" << persons[j].grade[k];
         }
         fout << '\n';
+    }
+}
+
+void bin_to_txt(Grade_Average* persons, size_t amount_persons){
+    std::ofstream fout("src_files/group_surname_average.txt");
+    for(size_t j{}; j < amount_persons; ++j){
+        fout << persons[j].surname << "---" << "---" << persons[j].record_book_number << ": " << persons[j].av_score << '\n';
     }
 }
 
@@ -205,8 +234,15 @@ void bin_to_con(StudentSurnameRecord* persons, size_t amount_persons){
     std::cout << "\n\n";
 }
 
+void bin_to_con(Grade_Average* persons, size_t amount_persons){
+    for(size_t j{}; j < amount_persons; ++j){
+        std::cout << persons[j].surname << "---" << "---" << persons[j].record_book_number << ": " << persons[j].av_score << '\n';
+    }
+    std::cout << "\n\n";
+}
+
 void bin_to_f(){
-    std::cout << "What do you want interpret?\n1. st_average_sore.bin;\n2. list_of_top_students.bin;\n3. list_of_underperforming_students.bin;\n4. st_info.bin;\n5. st_grades.bin;\n6. surname_grades.bin;\n";
+    std::cout << "What do you want interpret?\n1. st_average_sore.bin;\n2. list_of_top_students.bin;\n3. list_of_underperforming_students.bin;\n4. st_info.bin;\n5. st_grades.bin;\n6. surname_grades.bin;\n7. grade_alph_sort.bin;\n8. grade_av_score_sort.bin;\n";
     size_t num1{};
     size_t num2{};
     std::cin >> num1;
@@ -288,6 +324,32 @@ void bin_to_f(){
         }
         if(num2 == 2){
             bin_to_txt(persons6, amount_st6);
+        }
+    }
+    else if(num1 == 7){
+        std::ifstream biin7("src_files/grade_alph_sort.bin", std::ios::binary);
+        Grade_Average person7{};
+        size_t amount_st7 = amount(biin7, person7);
+        Grade_Average* persons7 = new Grade_Average[amount_st7];
+        read_bin(biin7, persons7, amount_st7);
+        if(num2 == 1){
+            bin_to_con(persons7, amount_st7);
+        }
+        if(num2 == 2){
+            bin_to_txt(persons7, amount_st7);
+        }
+    }
+    else if(num1 == 8){
+        std::ifstream biin8("src_files/grade_av_score_sort.bin", std::ios::binary);
+        Grade_Average person8{};
+        size_t amount_st8 = amount(biin8, person8);
+        Grade_Average* persons8 = new Grade_Average[amount_st8];
+        read_bin(biin8, persons8, amount_st8);
+        if(num2 == 1){
+            bin_to_con(persons8, amount_st8);
+        }
+        if(num2 == 2){
+            bin_to_txt(persons8, amount_st8);
         }
     }
     else{
