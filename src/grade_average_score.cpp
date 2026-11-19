@@ -15,8 +15,8 @@ void grade_av_score(int16_t specified_group)
 {
     std::cout << "Creating files..." << '\n';
     std::ifstream ifs("src_files/st_average_score.bin", std::ios::binary);
-    std::ofstream ofs_alph_sort("src_files/grade_alph_sort.bin", std::ios::binary);
-    std::ofstream ofs_av_score_sort("src_files/grade_av_score_sort.bin", std::ios::binary);
+    std::ofstream ofs_alph_sort("src_files/group_alph_sort.bin", std::ios::binary);
+    std::ofstream ofs_av_score_sort("src_files/group_av_score_sort.bin", std::ios::binary);
     if (!ifs.is_open() || !ofs_alph_sort.is_open() || !ofs_av_score_sort.is_open())
     {
         throw "Error opening files\n";
@@ -49,13 +49,13 @@ void grade_av_score(int16_t specified_group)
     ifs.close();
     ofs_alph_sort.close();
     ofs_av_score_sort.close();
-    std::cout << "\nDone! Grade_average_scort_list.bin is ready.\n";
+    std::cout << "\nDone! group_alph_sort.bin and group_av_score_sort.bin are ready.\n";
 }
 
-void ask_specific_group()
+void get_group_info()
 {
     int16_t group{};
-    std::cout << "Enter the group of students" << '\n';
+    std::cout << "Enter the group of students to get info" << '\n';
     std::cin >> group;
     grade_av_score(group);
 }
