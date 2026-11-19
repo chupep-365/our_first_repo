@@ -78,7 +78,7 @@ void create_bin_grades()
 void read_bin()
 {
     std::ifstream fin("src_files/surname_grades.bin", std::ios::binary);
-    StudentSurnameRecord record;
+    StudentSurnameRecord record{};
     if (!fin.is_open())
     {
         throw "File wasn't open\n";

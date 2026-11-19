@@ -11,6 +11,8 @@ int main()
         calc_average_score_of_students();
         create_list_of_underperforming_st();
         create_list_of_top_st();
+        sorted_list();
+        ask_specific_group();
         bin_to_f();
     }
     catch (const char *err)
