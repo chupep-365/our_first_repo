@@ -63,7 +63,7 @@ void sort_list()
     }
     Smart_array student{};
     init(student, 5);
-    Key_info_students bufer;
+    Key_info_students bufer{};
     while (ifs.read(reinterpret_cast<char *>(&bufer), sizeof(bufer)))
     {
         push(student, bufer);

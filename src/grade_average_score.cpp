@@ -57,7 +57,7 @@ void grade_av_score(const char *specified_group)
         throw "Error opening files\n";
     }
     Smart_Average_array person{};
-    A_s_students student;
+    A_s_students student{};
     init(person, 5);
     while (ifs.read(reinterpret_cast<char *>(&student), sizeof(student)))
     {
