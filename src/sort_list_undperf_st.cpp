@@ -57,8 +57,7 @@ void sort_list()
 {
     std::cout << "Creating file..." << '\n';
     std::ifstream ifs("src_files/list_of_underperforming_students.bin", std::ios::binary);
-    std::ofstream ofs("src_files/list_of_underperforming_students.bin", std::ios::binary);
-    if (!ifs.is_open() || !ofs.is_open())
+    if (!ifs.is_open())
     {
         throw "Error opening files\n";
     }
@@ -70,6 +69,7 @@ void sort_list()
         push(student, bufer);
     }
     std::sort(student.arr, student.arr + student.top, compare_students);
+    std::ofstream ofs("src_files/list_of_underperforming_students.bin", std::ios::binary);
     ofs.write(reinterpret_cast<const char *>(student.arr), student.top * sizeof(Key_info_students));
 
     ifs.close();
