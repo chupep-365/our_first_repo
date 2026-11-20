@@ -12,7 +12,7 @@ int main()
         create_list_of_underperforming_st();
         create_list_of_top_st();
         sorted_list();
-        ask_specific_group();
+        get_group_info();
         bin_to_f();
     }
     catch (const char *err)
