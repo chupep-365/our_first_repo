@@ -242,7 +242,7 @@ void bin_to_con(Grade_Average* persons, size_t amount_persons){
 }
 
 void bin_to_f(){
-    std::cout << "What do you want interpret?\n1. st_average_sore.bin;\n2. list_of_top_students.bin;\n3. list_of_underperforming_students.bin;\n4. st_info.bin;\n5. st_grades.bin;\n6. surname_grades.bin;\n7. grade_alph_sort.bin;\n8. grade_av_score_sort.bin;\n";
+    std::cout << "What do you want interpret?\n1. st_average_sore.bin;\n2. list_of_top_students.bin;\n3. list_of_underperforming_students.bin;\n4. st_info.bin;\n5. st_grades.bin;\n6. surname_grades.bin;\n7. group_alph_sort.bin;\n8. group_av_score_sort.bin;\n";
     size_t num1{};
     size_t num2{};
     std::cin >> num1;
@@ -327,7 +327,7 @@ void bin_to_f(){
         }
     }
     else if(num1 == 7){
-        std::ifstream biin7("src_files/grade_alph_sort.bin", std::ios::binary);
+        std::ifstream biin7("src_files/group_alph_sort.bin", std::ios::binary);
         Grade_Average person7{};
         size_t amount_st7 = amount(biin7, person7);
         Grade_Average* persons7 = new Grade_Average[amount_st7];
@@ -340,7 +340,7 @@ void bin_to_f(){
         }
     }
     else if(num1 == 8){
-        std::ifstream biin8("src_files/grade_av_score_sort.bin", std::ios::binary);
+        std::ifstream biin8("src_files/group_av_score_sort.bin", std::ios::binary);
         Grade_Average person8{};
         size_t amount_st8 = amount(biin8, person8);
         Grade_Average* persons8 = new Grade_Average[amount_st8];
